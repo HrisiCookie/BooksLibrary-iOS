@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Books {
+class Book {
     var id: String?
     var title: String?
     var bookDescription: String?

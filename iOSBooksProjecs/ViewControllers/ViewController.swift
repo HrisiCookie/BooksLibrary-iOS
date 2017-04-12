@@ -8,10 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, HttpRequesterDelegate {
+    var http: HttpRequester?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.http = HttpRequester()
+        self.http?.delegate = self
+        self.http?.get(fromUrl: "http://localhost:3000/api/books")
 
         // Do any additional setup after loading the view.
     }
@@ -19,6 +24,17 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didReceiveData(data: Any) {
+        let arr = data as! [Any]
+        arr.forEach { (item) in
+            let dict = item as! Dictionary<String, Any>
+        }
+    }
+    
+    func didReceiveError(error: Error) {
+    
     }
     
 

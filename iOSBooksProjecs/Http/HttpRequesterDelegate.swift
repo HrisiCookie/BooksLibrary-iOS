@@ -8,6 +8,14 @@
 
 import UIKit
 
-class HttpRequesterDelegate: NSObject {
+protocol HttpRequesterDelegate {
+    func didReceiveData(data: Any)
+    func didReceiveError(error: Error)
+}
 
+extension HttpRequesterDelegate {
+    func didReceiveData(data: Any) {
+    }
+    func didReceiveError(error: Error) {
+    }
 }
