@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailBookViewController: UIViewController, HttpRequesterDelegate {
+class DetailBookViewController: UIViewController {
     
     @IBOutlet weak var detailViewImage: UIImageView!
     @IBOutlet weak var detailViewText: UITextView!
@@ -25,15 +25,9 @@ class DetailBookViewController: UIViewController, HttpRequesterDelegate {
         }
     }
     
-    var http: HttpRequester? {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.http
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("book id in details vc: \(self.bookId)")
         self.loadBookDetails()
         // Do any additional setup after loading the view.
     }
@@ -44,16 +38,30 @@ class DetailBookViewController: UIViewController, HttpRequesterDelegate {
     }
     
     func loadBookDetails() {
-        self.http?.delegate = self
-        let url = "\(self.url)/\(self.bookId!)"
+//        HttpRequester.sharedInstance.delegate = self
+//        let url = "\(self.url)/\(self.bookId!)"
+        var singleBookUrl = APIURLFactorty()
+        var url = singleBookUrl.singleBookURL(forBookId: self.bookId!)
         self.showLoadingScreen()
-        self.http?.get(fromUrl: url)
+        HttpRequester.sharedInstance.requestJSON(withMethod: .get, toUrl: url) { (data, statusCode, error) in
+            guard let statusCode = statusCode else {
+                return
+            }
+            
+            if statusCode.isSuccess {
+                let dict = data as! Dictionary<String, Any>
+                self.book = Book(withDict: dict)
+                self.updateUI()
+            }
+            else {
+                statusCode.description
+            }
+        }
+//        HttpRequester.sharedInstance.get(fromUrl: url, completion: <#(Any?, HTTPStatusCode?, Error?) -> Void#>)
     }
     
     func didReceiveData(data: Any) {
-        let dict = data as! Dictionary<String, Any>
-        self.book = Book(withDict: dict)
-        self.updateUI()
+        
     }
     
     func updateUI() {
@@ -63,9 +71,9 @@ class DetailBookViewController: UIViewController, HttpRequesterDelegate {
             self.detailViewImage.image = {
                 let url = URL(string: (self.book?.coverUrl)!)
                 do {
-                let imageData =  try Data(contentsOf: url!)
-                let image = UIImage(data: imageData)
-                return image
+                    let imageData =  try Data(contentsOf: url!)
+                    let image = UIImage(data: imageData)
+                    return image
                 } catch let err as NSError {
                     print("Error: \(err.userInfo)")
                     return nil

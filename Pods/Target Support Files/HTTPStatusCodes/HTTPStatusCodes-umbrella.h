@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_iOSBooksProjecsUITestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_iOSBooksProjecsUITestsVersionString[];
+FOUNDATION_EXPORT double HTTPStatusCodesVersionNumber;
+FOUNDATION_EXPORT const unsigned char HTTPStatusCodesVersionString[];
 

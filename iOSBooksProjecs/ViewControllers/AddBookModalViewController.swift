@@ -12,7 +12,7 @@ protocol AddBookModalDelegate {
     func didCreateBook(book: Book?)
 }
 
-class AddBookModalViewController: UIViewController, HttpRequesterDelegate {
+class AddBookModalViewController: UIViewController {
 
     @IBOutlet weak var textDescription: UITextView!
     @IBOutlet weak var textTitle: UITextField!
@@ -26,18 +26,10 @@ class AddBookModalViewController: UIViewController, HttpRequesterDelegate {
         }
     }
     
-    var http: HttpRequester? {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.http
-        }
-    }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.http?.delegate = self
+//        HttpRequester.sharedInstance.delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -55,7 +47,7 @@ class AddBookModalViewController: UIViewController, HttpRequesterDelegate {
         let book = Book(withTitle: title!, bookDescription: description!, andCoverUrl: "")
         let bookDict = book.toDict()
         
-        self.http?.postJSON(toUrl: self.url, withBody: bookDict)
+//        HttpRequester.sharedInstance.postJSON(toUrl: self.url, withBody: bookDict)
     }
     
     

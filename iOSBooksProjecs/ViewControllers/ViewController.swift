@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, HttpRequesterDelegate {
+class ViewController: UIViewController {
     var http: HttpRequester?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.http = HttpRequester()
-        self.http?.delegate = self
-        self.http?.get(fromUrl: "http://localhost:3000/api/books")
+//        self.http?.delegate = self
+//        self.http?.get(fromUrl: "http://localhost:3000/api/books", completion: <#(Any?, HTTPStatusCode?, Error?) -> Void#>)
 
         // Do any additional setup after loading the view.
     }

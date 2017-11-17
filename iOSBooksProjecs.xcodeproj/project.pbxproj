@@ -23,7 +23,6 @@
 		761F24B81E918E5600B7DD16 /* HttpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24B71E918E5600B7DD16 /* HttpViewController.swift */; };
 		761F24BA1E91B47E00B7DD16 /* HttpRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24B91E91B47E00B7DD16 /* HttpRequester.swift */; };
 		761F24BC1E91BB4F00B7DD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24BB1E91BB4F00B7DD16 /* ViewController.swift */; };
-		761F24BE1E91BEE700B7DD16 /* HttpRequesterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24BD1E91BEE700B7DD16 /* HttpRequesterDelegate.swift */; };
 		761F24C11E91D62200B7DD16 /* BookDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24C01E91D62200B7DD16 /* BookDictionary.swift */; };
 		761F24C41E91E51C00B7DD16 /* LoadingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24C31E91E51C00B7DD16 /* LoadingExtension.swift */; };
 		761F24C71E91E9EF00B7DD16 /* AddBookModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F24C61E91E9EF00B7DD16 /* AddBookModalViewController.swift */; };
@@ -32,6 +31,11 @@
 		761F24CF1E93123800B7DD16 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761F24CE1E93123800B7DD16 /* CoreData.framework */; };
 		761F24D21E93133C00B7DD16 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 761F24D01E93133C00B7DD16 /* Model.xcdatamodeld */; };
 		B60FB631CACA0751497B40F7 /* Pods_iOSBooksProjecs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7146414C1B013B20E3A893AE /* Pods_iOSBooksProjecs.framework */; };
+		BC3959961EB8A89100C8077D /* UIAlertControllerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3959951EB8A89100C8077D /* UIAlertControllerWindow.swift */; };
+		BC3959981EBB3B6F00C8077D /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3959971EBB3B6F00C8077D /* HTTPStatusCode.swift */; };
+		BC39599A1EBB3BC200C8077D /* HTTPStatusCodesExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3959991EBB3BC200C8077D /* HTTPStatusCodesExtentions.swift */; };
+		BC39599E1EBCA46100C8077D /* APIURLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC39599D1EBCA46100C8077D /* APIURLFactory.swift */; };
+		BC9692081EC5FA3F00DB8BD9 /* LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9692071EC5FA3F00DB8BD9 /* LoadImage.swift */; };
 		BD60AC61ABE2D3691C0F8AAA /* Pods_iOSBooksProjecsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04A186D59FBCC86C06E7410 /* Pods_iOSBooksProjecsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +80,6 @@
 		761F24B71E918E5600B7DD16 /* HttpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpViewController.swift; sourceTree = "<group>"; };
 		761F24B91E91B47E00B7DD16 /* HttpRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequester.swift; path = Http/HttpRequester.swift; sourceTree = "<group>"; };
 		761F24BB1E91BB4F00B7DD16 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ViewControllers/ViewController.swift; sourceTree = "<group>"; };
-		761F24BD1E91BEE700B7DD16 /* HttpRequesterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequesterDelegate.swift; path = Http/HttpRequesterDelegate.swift; sourceTree = "<group>"; };
 		761F24C01E91D62200B7DD16 /* BookDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookDictionary.swift; path = Models/DictExtentions/BookDictionary.swift; sourceTree = "<group>"; };
 		761F24C31E91E51C00B7DD16 /* LoadingExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingExtension.swift; path = ViewControllers/Extensions/LoadingExtension.swift; sourceTree = "<group>"; };
 		761F24C61E91E9EF00B7DD16 /* AddBookModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddBookModalViewController.swift; path = ViewControllers/AddBookModalViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +91,11 @@
 		9F5CF1014BCFE44908427FBC /* Pods-iOSBooksProjecs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSBooksProjecs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSBooksProjecs/Pods-iOSBooksProjecs.debug.xcconfig"; sourceTree = "<group>"; };
 		A04A186D59FBCC86C06E7410 /* Pods_iOSBooksProjecsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSBooksProjecsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91541CE2795165DC94C2C97 /* Pods-iOSBooksProjecsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSBooksProjecsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSBooksProjecsUITests/Pods-iOSBooksProjecsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BC3959951EB8A89100C8077D /* UIAlertControllerWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertControllerWindow.swift; sourceTree = "<group>"; };
+		BC3959971EBB3B6F00C8077D /* HTTPStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		BC3959991EBB3BC200C8077D /* HTTPStatusCodesExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatusCodesExtentions.swift; sourceTree = "<group>"; };
+		BC39599D1EBCA46100C8077D /* APIURLFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIURLFactory.swift; path = Http/APIURLFactory.swift; sourceTree = "<group>"; };
+		BC9692071EC5FA3F00DB8BD9 /* LoadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadImage.swift; path = ViewControllers/LoadImage.swift; sourceTree = "<group>"; };
 		C7D38CAE4F16AA0917CE92DB /* Pods_iOSBooksProjecsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSBooksProjecsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB5B267C3C169AB8F9CBC38D /* Pods-iOSBooksProjecs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSBooksProjecs.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSBooksProjecs/Pods-iOSBooksProjecs.release.xcconfig"; sourceTree = "<group>"; };
 		DF0C7BA09903EBF998EACD6E /* Pods-iOSBooksProjecsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSBooksProjecsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSBooksProjecsTests/Pods-iOSBooksProjecsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +212,8 @@
 				761F24B71E918E5600B7DD16 /* HttpViewController.swift */,
 				761F24BB1E91BB4F00B7DD16 /* ViewController.swift */,
 				761F24C81E92D8B800B7DD16 /* HomeViewController.swift */,
+				BC3959951EB8A89100C8077D /* UIAlertControllerWindow.swift */,
+				BC9692071EC5FA3F00DB8BD9 /* LoadImage.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -212,7 +222,9 @@
 			isa = PBXGroup;
 			children = (
 				761F24B91E91B47E00B7DD16 /* HttpRequester.swift */,
-				761F24BD1E91BEE700B7DD16 /* HttpRequesterDelegate.swift */,
+				BC3959971EBB3B6F00C8077D /* HTTPStatusCode.swift */,
+				BC3959991EBB3BC200C8077D /* HTTPStatusCodesExtentions.swift */,
+				BC39599D1EBCA46100C8077D /* APIURLFactory.swift */,
 			);
 			name = Http;
 			sourceTree = "<group>";
@@ -355,6 +367,7 @@
 				TargetAttributes = {
 					761F24701E8F231A00B7DD16 = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 7WKA53T4Y2;
 						ProvisioningStyle = Automatic;
 					};
 					761F24841E8F231B00B7DD16 = {
@@ -561,18 +574,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				761F24BE1E91BEE700B7DD16 /* HttpRequesterDelegate.swift in Sources */,
+				BC3959981EBB3B6F00C8077D /* HTTPStatusCode.swift in Sources */,
 				761F24AC1E90776100B7DD16 /* Book.swift in Sources */,
 				761F24D21E93133C00B7DD16 /* Model.xcdatamodeld in Sources */,
 				761F24AF1E90787500B7DD16 /* BooksCollectionViewCell.swift in Sources */,
 				761F24C41E91E51C00B7DD16 /* LoadingExtension.swift in Sources */,
+				BC39599E1EBCA46100C8077D /* APIURLFactory.swift in Sources */,
 				761F24751E8F231B00B7DD16 /* AppDelegate.swift in Sources */,
 				761F24C11E91D62200B7DD16 /* BookDictionary.swift in Sources */,
 				761F24CD1E92DC5A00B7DD16 /* User.swift in Sources */,
 				761F24C71E91E9EF00B7DD16 /* AddBookModalViewController.swift in Sources */,
 				761F24AA1E9073C600B7DD16 /* BooksViewController.swift in Sources */,
+				BC9692081EC5FA3F00DB8BD9 /* LoadImage.swift in Sources */,
+				BC39599A1EBB3BC200C8077D /* HTTPStatusCodesExtentions.swift in Sources */,
 				761F24BA1E91B47E00B7DD16 /* HttpRequester.swift in Sources */,
 				761F24B81E918E5600B7DD16 /* HttpViewController.swift in Sources */,
+				BC3959961EB8A89100C8077D /* UIAlertControllerWindow.swift in Sources */,
 				761F24BC1E91BB4F00B7DD16 /* ViewController.swift in Sources */,
 				761F24C91E92D8B800B7DD16 /* HomeViewController.swift in Sources */,
 				761F24B51E917EEE00B7DD16 /* DetailBookViewController.swift in Sources */,
@@ -730,7 +747,9 @@
 			baseConfigurationReference = 9F5CF1014BCFE44908427FBC /* Pods-iOSBooksProjecs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7WKA53T4Y2;
 				INFOPLIST_FILE = iOSBooksProjecs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HB.iOSBooksProjecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -743,7 +762,9 @@
 			baseConfigurationReference = DB5B267C3C169AB8F9CBC38D /* Pods-iOSBooksProjecs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7WKA53T4Y2;
 				INFOPLIST_FILE = iOSBooksProjecs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HB.iOSBooksProjecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";

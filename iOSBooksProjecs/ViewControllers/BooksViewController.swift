@@ -9,202 +9,142 @@
 import UIKit
 import Presentr
 
-//private let reuseIdentifier = "Book cell"
-
-class BooksViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, HttpRequesterDelegate, AddBookModalDelegate {
-    var pageIndex = 0
+class BooksViewController: UIViewController
+{
+    @IBOutlet weak var collectionView: UICollectionView?
+  
+    var pageIndex = 1
     var books: [Book] = []
     
-    let presenter: Presentr = {
-        let presenter = Presentr(presentationType: .popup)
-        presenter.transitionType = .coverHorizontalFromRight
-        return presenter
-    }()
+    let presenter = Presentr(presentationType: .popup)
     
-    var url: String {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return "\(appDelegate.baseUrl)/books"
-        }
-    }
-    
-    var http: HttpRequester? {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.http
-        }
-    }
-//    var books: [Books] = []
-//
-    func didCreateBook(book: Book?) {
-//        self.loadBooks()
-        self.loadMore()
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.transitionType = .coverHorizontalFromRight
         
+        loadMore(withPageIndex: pageIndex)
         
-        self.http?.delegate = self
-        self.showLoadingScreen()
-//        self.http?.get(fromUrl: "http://localhost:3000/api/books")
-    
-//
         // Register cell classes
-        self.collectionView!.register(UINib(nibName: "BooksCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "book-cell")
+        collectionView?.register(UINib(nibName: "BooksCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BooksCollectionViewCell")
+    }
+    
+    func showDetails(of book: Book) {
+        let nextVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailBookViewController") as? DetailBookViewController
+        nextVC?.bookId = book.id
+        print("book id: \(String(describing: book.id))")
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(BooksViewController.showAddModal))
-        self.loadMore()
+        if let nextVC = nextVC {
+            navigationController?.show(nextVC, sender: self)
+        }
+    }
+    
+    @IBAction func addRightBarNavigationItem(_ sender: UIBarButtonItem) {
+        self.showAddModal()
     }
     
     func showAddModal() {
         let nextVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "modal-add-book") as! AddBookModalViewController
+            .instantiateViewController(withIdentifier: "AddBookModalViewController") as? AddBookModalViewController
         
-        nextVC.delegate = self
+        nextVC?.delegate = self
         
-        self.customPresentViewController(self.presenter, viewController: nextVC, animated: true, completion: nil)
-    }
-//
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-//
-    func didReceiveData(data: Any) {
-        let dataArray = data as! [Dictionary<String, Any>]
-        
-//        self.books = dataArray.map(){Book(withDict: $0)}
-        (dataArray.map(){Book(withDict: $0)})
-            .forEach(){ self.books.append($0)}
-        
-        DispatchQueue.main.async {
-            self.collectionView?.reloadData()
-            self.hideLoadingScreen()
-            self.hideLoadingScreen()
-            //stop loading
+        if let nextVC = nextVC {
+            customPresentViewController(presenter, viewController: nextVC, animated: true, completion: nil)
         }
-        
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func loadMore(withPageIndex pageIndex: Int) {
+        print("Page index: \(pageIndex)")
+        let url = APIURLFactorty().loadMoreBooks(pageIndex: self.pageIndex)
         
-        let width = collectionView.frame.width / 3.2
-        let height =
-            (collectionView.frame.width > collectionView.frame.height)
-            ? collectionView.frame.height
-            : collectionView.frame.height / 3
-        
-        return CGSize(width: width, height: height)
+        HttpRequester.sharedInstance.requestJSON(withMethod: .get, toUrl: url) { [weak self] (data, statusCode, error) in
+            guard let strongSelf = self else { return }
+            guard let statusCode = statusCode else {
+                let alert = UIAlertController(title: "Alert", message: "Server is not responding!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                strongSelf.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            if statusCode.isSuccess {
+                strongSelf.pageIndex += 1
+                let dataArray = data as! [Dictionary<String, Any>]
+                if dataArray.count != 0 {
+                    (dataArray.map(){Book(withDict: $0)})
+                        .forEach(){
+                            strongSelf.books.append($0)}
+                    
+                    DispatchQueue.main.async {
+                        strongSelf.collectionView?.reloadData()
+                    }
+                }
+            }
+            else {
+                let alert = UIAlertController(title: "Alert", message: "\(statusCode.description)", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                alert.present(alert, animated: true, completion: nil)
+                print("\(statusCode.description)")
+            }
+        }
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let book = self.books[indexPath.row]
-        self.showDetails(of: book)
-    }
-    
-    func showDetails(of book: Book) {
-        let nextVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "book-details") as! DetailBookViewController
-        nextVC.bookId = book.id
-        
-        self.navigationController?.show(nextVC, sender: self)
-    }
-    
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+// MARK: UICollectionViewDataSource
+extension BooksViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-//
-//
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.books.count
-    }
-// 
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "book-cell", for: indexPath) as! BooksCollectionViewCell
-        if(indexPath.row == self.books.count - 1){
-            self.loadMore()
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return books.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let book = books[indexPath.row]
+        showDetails(of: book)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let booksCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BooksCollectionViewCell", for: indexPath) as? BooksCollectionViewCell
+        guard let cell = booksCell else {
+            return UICollectionViewCell()
         }
         
-        let image: UIImage? = {
-            print("\(indexPath.row): \(self.books[indexPath.row].coverUrl)")
-            if(self.books[indexPath.row].coverUrl == "") {
-                return nil
-            }
-                let url = URL(string: self.books[indexPath.row].coverUrl)
-                do {
-                    let imageData = try Data(contentsOf: url!)
-                    let image = UIImage(data: imageData)!
-                    return image
-                } catch let err as NSError {
-                    print(err.userInfo)
-                    return nil
-                }
-        }()
-//
-        cell.imageView.image = image
-//        cell.backgroundColor = .yellow
+        if(indexPath.row == books.count - 1){
+            loadMore(withPageIndex: pageIndex)
+        }
+        
+        let currentBook = books[indexPath.item]
+        
+        cell.populate(with: currentBook, indexPath: indexPath)
         
         return cell
     }
-    
-    func loadMore() {
-        // start loading
-        self.showLoadingScreen()
-        self.pageIndex += 1
-        let url = "\(self.url)?page=\(self.pageIndex)"
-        self.http?.get(fromUrl: url)
-    }
-
-    
-    
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//        var nextVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "details") as! DetailBookControllerViewController
-//        nextVC = self.
-//    }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
+
+
+//MARK: - AddBookModalDelegate
+extension BooksViewController: AddBookModalDelegate {
+    func didCreateBook(book: Book?) {
+        loadMore(withPageIndex: pageIndex)
+    }
+   }
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension BooksViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.frame.width / 2.2
+        let height =
+            (collectionView.frame.width > collectionView.frame.height)
+                ? collectionView.frame.height
+                : collectionView.frame.height / 3
+        
+        return CGSize(width: width, height: height)
+    }
+}
+

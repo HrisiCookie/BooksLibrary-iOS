@@ -17,63 +17,85 @@ enum HttpMethod: String {
 
 class HttpRequester {
     
-    var delegate: HttpRequesterDelegate?
-
-    func send(withMethod method: HttpMethod, toUrl urlString: String, withBody bodyDict: Dictionary<String, Any>? = nil,
-              andHeaders headers: Dictionary<String, String> = [:]) {
-        let url = URL(string: urlString)
+    static let sharedInstance = HttpRequester()
+//
+    func send(withMethod method: HttpMethod, toUrl url: URL?, withBody bodyDict: [String: Any]? = nil,
+              andHeaders headers: [String: String] = [:], completion:  @escaping (Data?, URLResponse?, Error?) -> Void) {
+        var request: URLRequest
         
-        var request = URLRequest(url: url!)
+        guard let url = url else {
+            completion(nil, nil, nil)
+            return
+        }
+        
+        request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        if (bodyDict != nil) {
+        
+        if let bodyDict = bodyDict, (method == .put || method == .post) {
             do {
-                let body = try JSONSerialization.data(withJSONObject: bodyDict!, options: .prettyPrinted)
+                let body = try JSONSerialization.data(withJSONObject: bodyDict, options: .prettyPrinted)
+                request.setValue("application/json", forHTTPHeaderField: "Content-type")
                 request.httpBody = body
             } catch {
+                print("ERROR json serialization for url: \(url): \(error)")
             }
         }
         
         headers.forEach() {request.setValue($0.value, forHTTPHeaderField: $0.key)}
-        
-        weak var weakSelf = self
-        
         let dataTask = URLSession.shared.dataTask(with: request, completionHandler:
             {bodyData, response, error in
-                do {
-                    let body = try JSONSerialization.jsonObject(with: bodyData!, options: .allowFragments)
-                    weakSelf?.delegate?.didReceiveData(data: body)
-                }
-                catch {
-                    weakSelf?.delegate?.didReceiveError(error: error)
-                }
+            completion(bodyData, response, error)
         })
         
         dataTask.resume()
     }
     
-    func get(fromUrl urlString: String, andHeaders headers: Dictionary<String, String> = [:]) {
-        self.send(withMethod: .get, toUrl: urlString, withBody: nil, andHeaders: headers)
+    func requestJSON(withMethod method: HttpMethod, toUrl url: URL?, withBody bodyDict: [String: Any]? = nil,
+                     andHeaders headers: [String: String] = [:], completion: @escaping (Any?, HTTPStatusCode?, Error?) -> Void) {
+        send(withMethod: method, toUrl: url) { (bodyData, response, error) in
+            guard let bodyData = bodyData, error == nil else {
+            if let response = response {
+                completion(nil, HTTPStatusCode.init(HTTPResponse: response as? HTTPURLResponse), error)
+                print("ERROR: response for \(String(describing: url)) is \(response), error: \(String(describing: error))")
+            } else {
+                completion(nil, nil, error)
+                print("ERROR: response for \(String(describing: url)) is nil, error: \(String(describing: error))")
+            }
+                return
+            }
+            guard let response = response else {
+                completion(nil, nil, nil)
+                print("ERROR: response for \(String(describing: url)) is nil")
+                return
+            }
+        
+            let httpResponse = response as? HTTPURLResponse
+        
+            do {
+                let body = try JSONSerialization.jsonObject(with: bodyData, options: .allowFragments)
+                completion(body, HTTPStatusCode.init(HTTPResponse: httpResponse), nil)
+            }
+            catch let jsonError {
+                completion(nil,  HTTPStatusCode.init(HTTPResponse: httpResponse), jsonError)
+            }
+        }
     }
-    
-    func post(toUrl urlString: String, withBody bodyDict: Dictionary<String, Any>, adnHeaders headers: Dictionary<String, String> = [:]) {
-        self.send(withMethod: .post, toUrl: urlString, withBody: bodyDict, andHeaders: headers)
-    }
-    
-    func postJSON(toUrl urlString: String, withBody bodyDict: Dictionary<String, Any>, adnHeaders headers: Dictionary<String, String> = [:]) {
-        var headersWithJson: Dictionary<String, String> = [:]
-        headers.forEach() {headersWithJson[$0.key] = $0.value}
-        headersWithJson["Content-Type"] = "application/json"
-        self.post(toUrl: urlString, withBody: bodyDict, adnHeaders: headersWithJson)
-    }
-    
-    func put(toUrl urlString: String, withBody bodyDict: Dictionary<String, Any>, adnHeaders headers: Dictionary<String, String> = [:]) {
-        self.send(withMethod: .put, toUrl: urlString, withBody: bodyDict, andHeaders: headers)
-    }
-    
-    func putJSON(toUrl urlString: String, withBody bodyDict: Dictionary<String, Any>, adnHeaders headers: Dictionary<String, String> = [:]) {
-        var headersWithJson: Dictionary<String, String> = [:]
-        headers.forEach() {headersWithJson[$0.key] = $0.value}
-        headersWithJson["Content-Type"] = "application/json"
-        self.put(toUrl: urlString, withBody: bodyDict, adnHeaders: headersWithJson)
+
+    func downloadImage(withURL url: URL?, completion: @escaping (UIImage?) -> ()) {
+        send(withMethod: .get, toUrl: url) { (bodyData, response, error) in
+            guard let bodyData = bodyData else {
+                completion(nil)
+                return
+            }
+
+            do {
+                let image = UIImage(data: bodyData)
+                completion(image)
+            }
+            catch let err {
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
     }
 }

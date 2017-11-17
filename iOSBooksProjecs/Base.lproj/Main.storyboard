@@ -1,52 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NQw-OB-9ov">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NQw-OB-9ov">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Books View Controller-->
-        <scene sceneID="JqM-uO-QBa">
-            <objects>
-                <collectionViewController id="4jn-iD-WKz" customClass="BooksViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="EOW-xJ-WcM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yWX-1n-JTn">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9ZR-aC-k25">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                                <connections>
-                                    <segue destination="R8b-Yp-cfy" kind="showDetail" id="KD8-Bf-9EK"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="4jn-iD-WKz" id="Hyc-Yr-kXW"/>
-                            <outlet property="delegate" destination="4jn-iD-WKz" id="5Oh-NG-XOA"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="C1s-hl-wbO"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uMW-Qt-6hr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="756" y="226.23688155922042"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="eOI-At-TBc">
             <objects>
@@ -118,7 +80,7 @@
         <!--Add Book Modal View Controller-->
         <scene sceneID="hyg-50-XnP">
             <objects>
-                <viewController storyboardIdentifier="modal-add-book" id="dCF-oo-pah" customClass="AddBookModalViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddBookModalViewController" id="dCF-oo-pah" customClass="AddBookModalViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dSy-mm-PVL"/>
                         <viewControllerLayoutGuide type="bottom" id="jpd-bu-1fA"/>
@@ -145,7 +107,7 @@
                                 <rect key="frame" x="16" y="233" width="343" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -194,7 +156,7 @@
         <!--Detail Book View Controller-->
         <scene sceneID="ivn-WM-6Zf">
             <objects>
-                <viewController storyboardIdentifier="book-details" id="R8b-Yp-cfy" customClass="DetailBookViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailBookViewController" id="R8b-Yp-cfy" customClass="DetailBookViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AkO-g2-doX"/>
                         <viewControllerLayoutGuide type="bottom" id="yIw-Ec-2ir"/>
@@ -239,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIy-V0-Btk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1719.2" y="225.33733133433284"/>
+            <point key="canvasLocation" x="1588" y="226"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="VmX-Ma-oda">
@@ -318,11 +280,12 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="NQw-OB-9ov" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="8eQ-RI-PPi">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="odq-ST-tdo" kind="relationship" relationship="viewControllers" id="joh-ub-Jj5"/>
+                        <segue destination="d1B-OB-Z2q" kind="relationship" relationship="viewControllers" id="Krs-um-fOy"/>
                         <segue destination="cwO-Tm-gcI" kind="relationship" relationship="viewControllers" id="UgU-ps-V80"/>
                         <segue destination="gq1-u4-gwc" kind="relationship" relationship="viewControllers" id="efs-oM-aNY"/>
                         <segue destination="QMq-rA-h8g" kind="relationship" relationship="viewControllers" id="bdb-2j-NLu"/>
@@ -332,24 +295,63 @@
             </objects>
             <point key="canvasLocation" x="-1122.4000000000001" y="226.23688155922042"/>
         </scene>
-        <!--All books-->
-        <scene sceneID="ubX-rU-Y8h">
+        <!--Books View Controller-->
+        <scene sceneID="X2H-SK-wDU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="odq-ST-tdo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All books" id="hvH-07-rHG"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vL7-GB-5Ad">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <viewController id="Pq4-5c-Yjx" customClass="BooksViewController" customModule="iOSBooksProjecs" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7S6-j7-Vv4"/>
+                        <viewControllerLayoutGuide type="bottom" id="CWs-3a-dqS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7tk-kt-alc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TeD-Xz-itV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nPp-10-nJ9">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="NWh-Ro-3Y7">
+                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <connections>
+                                            <segue destination="R8b-Yp-cfy" kind="show" id="mwx-by-6nw"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Pq4-5c-Yjx" id="vEU-uV-4dY"/>
+                                    <outlet property="delegate" destination="Pq4-5c-Yjx" id="T7I-sn-XR9"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="oyY-KK-FlL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9P5-WD-nkT">
+                            <connections>
+                                <action selector="addRightBarNavigationItem:" destination="Pq4-5c-Yjx" id="CDM-hb-yRi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <segue destination="4jn-iD-WKz" kind="relationship" relationship="rootViewController" id="hxN-Pp-4Pf"/>
+                        <outlet property="collectionView" destination="TeD-Xz-itV" id="SNo-9a-ghx"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="66P-kh-yVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vKn-Aj-tqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-183.19999999999999" y="226.23688155922042"/>
+            <point key="canvasLocation" x="602" y="224"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qZw-1F-hnh">
@@ -491,6 +493,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jli-D5-sCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1693.5999999999999" y="983.65817091454278"/>
+        </scene>
+        <!--Books-->
+        <scene sceneID="QKo-P5-b3x">
+            <objects>
+                <navigationController title="Books" automaticallyAdjustsScrollViewInsets="NO" id="d1B-OB-Z2q" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Books" id="Nt0-rC-5RN"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kLw-un-mgu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Pq4-5c-Yjx" kind="relationship" relationship="rootViewController" id="Lcq-HY-Am7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RNn-sd-P6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-260" y="224"/>
         </scene>
     </scenes>
 </document>

@@ -7,6 +7,8 @@ target 'iOSBooksProjecs' do
 
   # Pods for iOSBooksProjecs
   pod 'Presentr'
+  
+  pod 'HTTPStatusCodes', '~> 3.1.1'
 
   target 'iOSBooksProjecsTests' do
     inherit! :search_paths
